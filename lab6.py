@@ -1,6 +1,6 @@
 import data
 from typing import Optional
-
+from data import Book
 # Write your functions for each part in the space below.
 
 # Part 0
@@ -37,10 +37,40 @@ def selection_sort(values:list[int]) -> None:
 
 
 # Part 1
+# Function to sort a list of Book objects by title using selection sort
+# input: list of Book objects
+# output: None (sorts list in-place)
+def selection_sort_books(books: list[Book]) -> None:
+    # Iterate through each book in the list
+    for i in range(len(books)):
+        # Assume the current index is the minimum
+        min_index = i
 
+        # Compare with the rest of the list
+        for j in range(i + 1, len(books)):
+            # If the title of the book at j is less than the title of the book at min_index
+            if books [j].title < books[min_index].title:
+                min_index = j
+        # Swap the found minimum title book with the book at index i
+        books[i], books[min_index] = books[min_index], books[i]
 
 # Part 2
-
+# Function to swap the case of each alphabetic character in a string
+# input: a single string
+# output: a string with uppercase characters converted to lowercase and lowercase characters converted to uppercase
+def swap_case(input_str)-> str:
+    result = ""
+    for char in input_str:
+        if char.islower():
+            # Convert lowercase to uppercase
+            result += char.upper()
+        elif char.isupper():
+            # Convert uppercase to lowercase
+            result += char.lower()
+        else:
+            # Non-alphabetic characters remain the same
+            result += char
+    return result
 
 # Part 3
 
