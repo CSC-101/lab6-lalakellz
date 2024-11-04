@@ -2,7 +2,7 @@ import data
 import lab6
 import unittest
 from data import Book
-from lab6 import selection_sort_books,swap_case
+from lab6 import selection_sort_books,swap_case, str_translate, histogram
 
 # Write your test cases for each part below.
 
@@ -65,26 +65,23 @@ class TestCases(unittest.TestCase):
 
 
     # Part 1
-    def test_multiple_books(self):
-        # Test with multiple books
-        books = [Book("1984"),
-            Book("To Kill a Mockingbird"),
-            Book("Brave New World"),
-            Book("The Great Gatsby"),
-            Book("Moby Dick")]
+    def test_sorted_books(self):
+        books = [
+            Book("J.D. Salinger", "The Catcher in the Rye"),
+            Book( "George Orwell", "1984"),
+            Book("Harper Lee", "To Kill a Mockingbird"),
+            Book("George Orwell", "Animal Farm")
+        ]
+        expected_titles = [
+            "1984", "Animal Farm", "The Catcher in the Rye", "To Kill a Mockingbird"
+        ]
         selection_sort_books(books)
         sorted_titles = [book.title for book in books]
-        expected_titles = sorted(sorted_titles)  # Get expected order by sorting titles
         self.assertEqual(sorted_titles, expected_titles)
 
     def test_empty_list(self):
-        # Input: an empty list
         input_books = []
-
-        # Act: sort the empty list
         selection_sort_books(input_books)
-
-        # Assert: the empty list should remain empty
         self.assertEqual([], input_books)
 
     #Part 2
@@ -104,12 +101,30 @@ class TestCases(unittest.TestCase):
         self.assertEqual(swap_case(input_str), expected)
 
     # Part 3
+    def test_translate(self):
+        input_str = "abcdcba"
+        old = 'a'
+        new = 'x'
+        expected = "xbcdcbx"
+        self.assertEqual(str_translate(input_str, old, new), expected)
 
+    def test_translate_2(self):
+        input_str = "aaaa"
+        old = 'a'
+        new = 'b'
+        expected = "bbbb"
+        self.assertEqual(str_translate(input_str, old, new), expected)
 
     # Part 4
+    def test_case_sensitivity(self):
+        input_str = "Dog dog DOG"
+        expected = {'Dog': 1, 'dog': 1, 'DOG': 1}
+        self.assertEqual(histogram(input_str), expected)
 
-
-
+    def test_multiple_words_same_count(self):
+        input_str = "apple banana apple banana"
+        expected = {'apple': 2, 'banana': 2}
+        self.assertEqual(histogram(input_str), expected)
 
 
 if __name__ == '__main__':
